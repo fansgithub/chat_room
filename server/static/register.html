@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>很low的聊天室-注册</title>
+    <script src="./js/jquery-1.12.3.min.js"></script>
+    <script>
+        $(function(){
+            $('#submit').on('click', function(){
+                let username = $("input[name='username']").val();
+                let nickName = $("input[name='nickName']").val();
+                let gender = $("input[name='gender']:checked").val();
+                let password = $("input[name='password']").val();
+                let postData = {
+                    username,
+                    nickName,
+                    gender,
+                    password
+                }
+                $.ajax({
+                    url: '/register',
+                    type: 'POST',
+                    data: postData,
+                    success: function(res){
+                        if(!res.result){
+                            alert(res.errorMessage)
+                        }else{
+                            alert('注册成功, 3s后返回登录页面');
+                            setTimeout(function(){
+                                window.location = '/login.html';
+                            }, 3000)
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+    用户名：
+    <input name="username" />
+    <br/>
+    昵称：
+    <input name="nickName" />
+    <br/>
+    性别：
+    <input type="radio" name="gender" value="man" checked="checked" />男 
+    <input type="radio" name="gender" value="female" />女
+    <br/>
+    密码：
+    <input name="password" type="password" />
+    <br/>
+    <button type="submit" id="submit">注册</button>
+</body>
+</html>

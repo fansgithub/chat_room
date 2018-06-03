@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>很low的聊天室-登录</title>
+    <script src="./js/jquery-1.12.3.min.js"></script>
+    <script>
+        $(function(){
+            $('#submit').on('click', function(){
+                let username = $("input[name='username']").val();
+                let password = $("input[name='password']").val();
+                let postData = {
+                    username,
+                    password
+                }
+                $.ajax({
+                    url: '/login',
+                    type: 'POST',
+                    data: postData,
+                    success: function(){
+                        window.location = '/index.html';
+                    },
+                    error: function(err){
+                        console.log(err)
+                    }
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+    <form action="login" method="post">
+        用户名<input name="username" />没有账号？<a href="/register.html">去注册</a>
+        <br/>
+        密码<input name="password" type="password" />
+        <button type="submit">登录</button>
+    </form>
+</body>
+</html>
