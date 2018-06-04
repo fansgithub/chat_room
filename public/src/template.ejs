@@ -22,6 +22,7 @@
             document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>');
         })();
     </script>
+    <% if (htmlWebpackPlugin.options.name !== 'login') { %><script src="/api/session"></script><% } %>
     <div id="app"></div>
 </body>
 </html>

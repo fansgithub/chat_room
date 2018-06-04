@@ -21,7 +21,7 @@ export default new class LoginForm extends V.BaseStore{
     login = () => {
         if(!this.validate()) return;
         ajax.post('/login', {
-            username: this.loginName,
+            loginName: this.loginName,
             password: this.password,
         }).then(()=>{
             if(window.localStorage){

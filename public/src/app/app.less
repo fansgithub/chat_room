@@ -1,17 +1,72 @@
 .message-page{
+    background: #F5F6FA;
     .header{
         line-height: 38px;
         text-align: center;
+    }
+    .messages-area{
+        padding: 10px;
     }
     .send-message-area{
         display: flex;
         padding: 5px 10px;
     }
-    .current-message{
+    .gui-input.current-message{
         flex: 1;
         margin-right: 10px;
+        & > input{
+            height: 100%;
+            text-align: left;
+        }
     }
     .send-button{
         width: auto;
     }
+    .system-message{
+        text-align: center;
+        padding: 0 10px;
+        color: #ccc;
+    }
+    .single-message{
+        .source{
+            color: #ccc;
+        }
+        margin-top: 10px;
+        width: 60%;
+        &.direction-left{
+            margin-right: 40%;
+            & .message{
+                display: flex;
+                padding-top: 5px;
+                & > div:first-child{
+                    background: #ffffff;
+                    border-radius: 6px;
+                    padding: 5px;
+                    word-break: break-all;
+                    word-wrap: break-word;
+                }
+                & > div:last-child{
+                    flex: 1;
+                }
+            }
+        }
+        &.direction-right{
+            margin-left: 40%;
+            & .message{
+                display: flex;
+                padding-top: 5px;
+                & > div:last-child{
+                    background: greenyellow;
+                    border-radius: 6px;
+                    padding: 5px;
+                    word-break: break-all;
+                    word-wrap: break-word;
+                }
+                & > div:first-child{
+                    flex: 1;
+                }
+            }
+        }
+    }
+    
 }

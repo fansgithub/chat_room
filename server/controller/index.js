@@ -1,19 +1,22 @@
 const query = require('../mysql.js');
 const getCookie = require('../get-cookie.js');
 const moment = require('moment');
+const _ = require('lodash');
 module.exports = {
-    index: async (ctx, next)=>{
-        console.log(ctx.session)
-        if(ctx.session){
-            ctx.redirect('/index.html');
+    session: async (ctx, next)=>{
+        let username = _.get(ctx.session, 'username');
+        if(username){
+            let sql = 'select * from user_info where user_name = ?';
+            let userInfo = await query(sql, [username]);
+            let data = userInfo[0];
+            ctx.body = 'var InitData =' + JSON.stringify(data);
         }else{
-            ctx.redirect('/login.html');
+            ctx.body = {};
         }
     },
     login: async (ctx, next)=>{
         let {loginName, password} = ctx.request.body;
         let queryResult = await query(`select * from user_info where user_name='${loginName}' and user_password='${password}'`)
-        console.log(loginName, password)
         if(queryResult.length === 1){
             ctx.session = {
                 username: loginName,
@@ -52,20 +55,4 @@ module.exports = {
             }, )
         }
     },
-
-    userInfo: async (ctx, next) => {
-        let cookies = (ctx.request.header.cookie);
-        let sessionId = getCookie(cookies, 'SESSION_ID');
-        let sql = 'select * from _mysql_session_store where id = ?';
-        let data = await query(sql, [`SESSION_ID:${sessionId}`]);
-        let userName;
-        if(data.length > 0){
-            userName = JSON.parse(data[0].data).username;
-            let sql = 'select * from user_info where user_name = ?';
-            let userInfo = await query(sql, [userName])
-            ctx.body = userInfo[0];
-        }else{
-            ctx.body = 'session expried'
-        }
-    }
 }

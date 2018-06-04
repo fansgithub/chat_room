@@ -20,32 +20,27 @@ const getCookie = require('./get-cookie');
             }
         }
     }
-    wss.on('connection', async (ws) => {
-        let cookies = (ws.upgradeReq.headers.cookie);
-        let sessionId = getCookie(cookies, 'SESSION_ID');
-        let sql = 'select * from _mysql_session_store where id = ?';
-        let data = await query(sql, [`SESSION_ID:${sessionId}`]);
-        let userName;
-        if(data.length > 0){
-            userName = JSON.parse(data[0].data).username;
-            //console.log(userName)
-            let sql = 'select * from user_info where user_name = ?';
-            let userInfo = await query(sql, [userName])
-            //console.log(userInfo)
-            source = userInfo[0].user_nick_name
-            clients.push({
-                ws,
-                source,
-            });
-            let message = `${source}已连接`;
-            //console.log(message)
-            wsSend(ws, "system", message);
-        }else{
-            console.log('用户信息获取失败')
+
+    let changeOnLineNum = () => {
+        for (let i = 0; i < clients.length; i++) {
+            let clientSocket = clients[i].ws;
+            if(clientSocket.readyState === WebSocket.OPEN){
+                clientSocket.send(JSON.stringify({
+                    callback: 'changeOnLineNumber',
+                    params: clients.length,
+                }));
+            }
         }
-       
+    }
+
+
+    wss.on('connection', async (ws) => {
+        clients.push({
+            ws,
+        })
+        //修改在线人数
+        changeOnLineNum();
         ws.on('message', function(data){
-            console.log(data)
             let {source, type, message} = JSON.parse(data);
             if(type === 'system'){
                 wsSend(ws, "system", message);
@@ -65,7 +60,6 @@ const getCookie = require('./get-cookie');
             }
         };
         ws.on('close', (ws)=>{
-            console.log(ws)
             closeSocket(ws)
         });
         process.on('SIGINT', function () {

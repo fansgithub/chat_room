@@ -94,6 +94,7 @@ module.exports = {
             new HtmlWebpackPlugin({
                 path: `${__dirname}/dest`,
                 filename: 'index.html',
+                name: 'index',
                 template: `${__dirname}/src/template.ejs`,
                 favicon: `${__dirname}/src/favicon.ico`,
                 chunks: ['vendor', 'app']
@@ -101,6 +102,7 @@ module.exports = {
             new HtmlWebpackPlugin({
                 path: `${__dirname}/dest`,
                 filename: 'login.html',
+                name: 'login',
                 template: `${__dirname}/src/template.ejs`,
                 favicon: `${__dirname}/src/favicon.ico`,
                 chunks: ['vendor', 'login']
