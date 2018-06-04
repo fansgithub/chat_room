@@ -70,6 +70,12 @@ export default new class Index extends V.BaseStore{
         }
     }
 
+    layout = () => {
+        ajax.get('/layout').then(()=>{
+            window.location = '/login.html';
+        })
+    }
+
     getValidationConfig(){
         return {
             

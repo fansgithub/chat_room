@@ -14,7 +14,10 @@ export default class Index extends React.Component{
     render(){
         return(
             <StickyHeader className="message-page">
-                <div className="header">当前在线人数：{store.onLineNumber}</div>
+                <div className="header">
+                    <div>当前在线人数：{store.onLineNumber}</div>
+                    <div onClick={store.layout}>退出</div>
+                </div>
                 <StickyFooter padding={false}>
                     <div className="messages-area">
                         <For each="item" of={store.messages} index="index">

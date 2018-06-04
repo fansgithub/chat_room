@@ -3,6 +3,14 @@
     .header{
         line-height: 38px;
         text-align: center;
+        display: flex;
+        & > div:first-child{
+            flex: 1;
+        }
+        & > div:last-child{
+            margin-right: 10px;
+            color: red;
+        }
     }
     .messages-area{
         padding: 10px;

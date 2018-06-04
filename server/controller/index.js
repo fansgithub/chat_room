@@ -31,6 +31,13 @@ module.exports = {
             }
         }
     },
+    layout: async (ctx, next)=>{
+        console.log(ctx.session);
+        ctx.session = null;
+        ctx.body = {
+            result: true
+        }
+    },
     register: async (ctx, next)=>{
         let {username, password,  nickName, gender} = ctx.request.body;
         //判断用户名是否重复
