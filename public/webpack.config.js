@@ -18,6 +18,7 @@ module.exports = {
     entry: {
         app: './src/app.jsx',
         login: './src/login.jsx',
+        register: './src/register.jsx'
     },
     output: {
         path: `${__dirname}/dest`,
@@ -106,6 +107,14 @@ module.exports = {
                 template: `${__dirname}/src/template.ejs`,
                 favicon: `${__dirname}/src/favicon.ico`,
                 chunks: ['vendor', 'login']
+            }),
+            new HtmlWebpackPlugin({
+                path: `${__dirname}/dest`,
+                filename: 'register.html',
+                name: 'register',
+                template: `${__dirname}/src/template.ejs`,
+                favicon: `${__dirname}/src/favicon.ico`,
+                chunks: ['vendor', 'register']
             })
         ];
         if(!isProduction){

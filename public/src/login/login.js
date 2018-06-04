@@ -32,9 +32,10 @@ export default new class LoginForm extends V.BaseStore{
     }
 
     register = () => {
-        //window.location = '/register.html'
+        window.location = '/register.html'
     }
     forgetPassword = () => {
+        alert('暂未开放')
         //window.location = '/forgetPassword.html'
     }
 

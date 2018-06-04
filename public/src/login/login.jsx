@@ -30,8 +30,8 @@ export default class Login extends React.Component{
                     </div>
                 </div>
                 <div className="login-txt">
-                    <a href="#" onClick={store.register}>立即注册</a>|
-                    <a href="#" onClick={store.forgetPassword}>忘记密码？</a>
+                    <a href="javascript:void(0)" onClick={store.register}>立即注册</a>|
+                    <a href="javascript:void(0)" onClick={store.forgetPassword}>忘记密码？</a>
                 </div>
             </div>
             

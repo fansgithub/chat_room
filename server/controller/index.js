@@ -36,10 +36,9 @@ module.exports = {
         //判断用户名是否重复
         let result = await query(`select * from user_info where user_name = '${username}'`);
         if(result.length > 0){
-            console.log(result.length)
             ctx.body = {
                 result: false,
-                errorMessage: '用户名已存在'
+                errorMsg: '用户名已存在'
             }
         }else{
             let post = {
@@ -49,10 +48,10 @@ module.exports = {
                 user_password: password,
                 submission_date: moment().format('YYYY-MM-DD HH:mm:ss'),
             }
-            query('INSERT INTO user_info SET ?', post).then((data)=>{
-                console.log()
-                //ctx.redirect('/login.html');
-            }, )
+            await query('INSERT INTO user_info SET ?', post);
+            ctx.body = {
+                result: true
+            }
         }
     },
 }
