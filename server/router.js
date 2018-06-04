@@ -1,5 +1,7 @@
 
-const router = require('koa-router')();
+const router = require('koa-router')({
+    prefix: '/api'
+});
 const controller = require('./controller/index') 
 module.exports = (app) => {
     router.get('/session', controller.session);

@@ -11,9 +11,10 @@ app.use(bodyParser());
 
 router(app);
 
-const staticPath = './static';
+//const staticPath = './static';
+const staticPath = '../public/dest'
 app.use(koaStatic(
-    path.join(__dirname, staticPath)
+    path.resolve(__dirname, staticPath)
 ));
 app.listen(5000, ()=>{
     console.log('server is running at http://localhost:5000')
